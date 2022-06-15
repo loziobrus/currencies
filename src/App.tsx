@@ -1,51 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { getAllCurrencies, getCurrencyByDate } from './api/currencies';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './App.css';
+import Exchange from './components/Exchange';
+import History from './components/History';
+import Menu from './components/Menu';
+import Rate from './components/Rate';
 
 const App = () => {
-  const [allCurrencies, setAllCurrencies] = useState<string[]>([]);
-
-  const [selectedCurrency, setSelectedCurrency] = useState<any>();
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
-  const [currencyRate, setCurrencyRate] = useState<any>({});
-
-
-  const getCurrency = async (date: Date, base: string) => setCurrencyRate(await getCurrencyByDate(date, base));
-  const setAllCurrenciesFromRequest = async () => setAllCurrencies(await getAllCurrencies())
-
-
-  useEffect(() => {
-    setAllCurrenciesFromRequest();
-  }, [])
+  const [page, setPage] = useState(0);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className='filters'>
-          <DatePicker selected={selectedDate} onChange={(date: Date) => setSelectedDate(date)} />
-          <select onChange={(value) => setSelectedCurrency(value.target.value)}>
-            {Object.keys(allCurrencies).map((c: any) =>
-              <option value={c}>{allCurrencies[c]}</option>
-            )}
-          </select>
-          <button onClick={() => getCurrency(selectedDate, selectedCurrency)}>Find</button>
-        </div>
-        <div className='rates'>
-          <table>
-            <tbody>
-              {Object.keys(currencyRate).map((r: any) =>
-                <tr>
-                  <td>{r}</td>
-                  <td>{currencyRate[r]}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </header>
+      {page === 0 && <Menu setPage={setPage}/>}
+      {page === 1 && <Rate setPage={setPage}/>}
+      {page === 2 && <Exchange setPage={setPage}/>}
+      {page === 3 && <History setPage={setPage}/>}
     </div>
   );
 }

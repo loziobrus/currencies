@@ -1,0 +1,47 @@
+.menu {
+  display: flex;
+  gap: 30px;
+}
+
+.menu-item {
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  font-size: 16px;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+}
+
+.back-button {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.rates {
+  display: flex;
+  justify-content: center;
+}
+
+table, tr, td {
+  font-size: 14px;
+  border-spacing: 0;
+  padding: 0.25rem;
+}
+
+.exchange {
+  display: flex;
+  flex-direction: column;
+}

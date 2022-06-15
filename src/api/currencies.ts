@@ -9,3 +9,7 @@ const getFormattedDate = (date: Date) => moment(date).format('YYYY-MM-DD');
 export const getCurrencyByDate = async (date: Date, base: string) => (await axios.get(`${api}/${getFormattedDate(date)}?base=${base}`, )).data.rates
 
 export const getAllCurrencies = async () => (await axios.get(`${api}/symbols`, )).data.symbols
+
+export const convertCurrencies = async (from: string, to: string, amount: string) => (await axios.get(`${api}/convert?from=${from}&to=${to}&amount=${amount}`)).data.result
+
+export const getCurrencyHistory = async (startDate: Date, endDate: Date, base: string, target: string) => (await axios.get(`${api}/timeseries?start_date=${getFormattedDate(startDate)}&end_date=${getFormattedDate(endDate)}&base=${base}&symbols=${target}`)).data.rates
